@@ -1,0 +1,90 @@
+import { TouchableOpacity, Text, View, Modal } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+
+type Props = {
+  visible: boolean;
+  onClose: () => void;
+  onImageSelected: (uri: string) => void;
+};
+
+export default function ImagePickerModal({
+  visible,
+  onClose,
+  onImageSelected,
+}: Props) {
+  const pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ["images", "videos"],
+        allowsEditing: false,
+        aspect: [3, 4],
+        quality: 0.7,
+      });
+
+      console.log(result);
+
+      if (!result.canceled) {
+        onImageSelected(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.error("Fotoğraf seçme hatası:", error);
+      alert("Fotoğraf seçilirken bir hata oluştu.");
+    }
+  };
+
+  const takePhoto = async () => {
+    try {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== "granted") {
+        alert("Kamera izni verilmedi.");
+        return;
+      }
+      let result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ["images", "videos"],
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      console.log(result);
+
+      if (!result.canceled) {
+        onImageSelected(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.error("Fotoğraf seçme hatası:", error);
+      alert("Fotoğraf seçilirken bir hata oluştu.");
+    }
+  };
+
+  return (
+    <Modal visible={visible} animationType="fade">
+      <View className="flex-1 justify-center bg-black/50">
+        <View className="bg-white mx-4 p-6 rounded-lg">
+          <Text className="text-lg font-bold mb-4">Resim Seç</Text>
+
+          <TouchableOpacity
+            className="bg-blue-500 p-3 rounded mb-2"
+            onPress={pickImage}
+          >
+            <Text className="text-white text-center">Galeriden Seç</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            className="bg-blue-500 p-3 rounded mb-2"
+            onPress={takePhoto}
+          >
+            <Text className="text-white text-center">Fotograf Cek</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            className="border border-gray-300 p-3 rounded"
+            onPress={onClose}
+          >
+            <Text className="text-gray-700 text-center">İptal</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
+  );
+}
