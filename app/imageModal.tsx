@@ -46,8 +46,6 @@ export default function ImagePickerModal({
         quality: 1,
       });
 
-      console.log(result);
-
       if (!result.canceled) {
         onImageSelected(result.assets[0].uri);
       }
@@ -61,7 +59,7 @@ export default function ImagePickerModal({
     <Modal visible={visible} animationType="fade">
       <View className="flex-1 justify-center bg-black/50">
         <View className="bg-white mx-4 p-6 rounded-lg">
-          <Text className="text-lg font-bold mb-4">Resim Seç</Text>
+          <Text className="text-lg font-bold mb-4">Resim Ekle</Text>
 
           <TouchableOpacity
             className="bg-blue-500 p-3 rounded mb-2"

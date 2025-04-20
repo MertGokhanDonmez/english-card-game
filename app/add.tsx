@@ -9,19 +9,29 @@ import {
 } from "react-native";
 import { FlashCardType } from "../types/flashCard";
 import ImagePickerModal from "../app/imageModal";
-
-const handleCardCreate = (card: FlashCardType) => {
-  console.log("Kart Oluşturuldu:", card);
-};
+import CheckedModal from "./checkedModal";
 
 export default function AddScreen() {
   const [backText, setBackText] = useState("");
   const [imageUri, setImageUri] = useState<string | "">("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleImageSelect = (uri: string) => {
     setImageUri(uri);
     setModalVisible(false);
+  };
+
+  const handleClear = () => {
+    setImageUri("");
+    setBackText("");
+  };
+
+  const handleCardCreate = (card: FlashCardType) => {
+    console.log("Kart Oluşturuldu:", card);
+    if (card) {
+      setShowAlert(true);
+    }
   };
 
   const virtualCard: FlashCardType = {
@@ -35,21 +45,22 @@ export default function AddScreen() {
   return (
     <View className="p-4 flex items-center justify-center flex-1 mt-16">
       {imageUri && (
-        <View className="mt-4">
-          <Text className="text-center">Seçilen Görsel:</Text>
-          <Image
-            source={{ uri: imageUri }}
-            style={{ width: 200, height: 200, borderRadius: 10 }}
+        <>
+          <View className="mt-4">
+            <Text className="text-center">Seçilen Görsel:</Text>
+            <Image
+              source={{ uri: imageUri }}
+              style={{ width: 200, height: 200, borderRadius: 10 }}
+            />
+          </View>
+          <TextInput
+            className="h-12 border rounded-lg p-2 mt-4 w-[50%]"
+            placeholder="İngilizce karşılık"
+            value={backText}
+            onChangeText={setBackText}
           />
-        </View>
+        </>
       )}
-
-      <TextInput
-        className="h-12 border rounded-lg p-2 mt-4 w-[50%]"
-        placeholder="İngilizce karşılık"
-        value={backText}
-        onChangeText={setBackText}
-      />
 
       <ImagePickerModal
         visible={modalVisible}
@@ -66,18 +77,28 @@ export default function AddScreen() {
           <Text className="text-center text-white">Görsel Seç</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          className="bg-green-500 rounded-lg p-4 items-center"
-          onPress={() => {
-            if (!imageUri || !backText) {
-              Alert.alert("Hata", "Lütfen tüm alanları doldurun");
-              return;
-            }
-            handleCardCreate(virtualCard);
-          }}
-        >
-          <Text className="text-center text-white">Kaydet</Text>
-        </TouchableOpacity>
+        {imageUri && backText ? (
+          <>
+            <TouchableOpacity
+              className="bg-green-500 rounded-lg p-4 items-center"
+              onPress={() => {
+                if (!imageUri || !backText) {
+                  Alert.alert("Hata", "Lütfen tüm alanları doldurun");
+                  return;
+                }
+                handleCardCreate(virtualCard);
+              }}
+            >
+              <Text className="text-center text-white">Kaydet</Text>
+            </TouchableOpacity>
+
+            <CheckedModal
+              visible={showAlert}
+              onClose={() => setShowAlert(false)}
+              onClear={() => handleClear()}
+            />
+          </>
+        ) : null}
       </View>
     </View>
   );
