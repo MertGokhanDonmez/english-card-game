@@ -1,53 +1,17 @@
 // components/BackButton.tsx
 import React from "react";
-import {
-  Pressable,
-  Text,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-} from "react-native";
+import { Pressable, View } from "react-native";
 import { useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
+import Icon from "react-native-vector-icons/Octicons";
 
-type BackButtonProps = {
-  label?: string;
-  buttonStyle?: ViewStyle;
-  textStyle?: TextStyle;
-};
-
-export default function BackButton({
-  label = "Back",
-  buttonStyle,
-  textStyle,
-}: BackButtonProps) {
+export default function BackButton({}) {
   const router = useRouter();
 
   return (
-    <Pressable
-      onPress={() => router.back()}
-      style={[styles.button, buttonStyle]}
-    >
-      <Ionicons name="arrow-back" size={20} style={styles.icon} />
-      <Text style={[styles.text, textStyle]}>{label}</Text>
-    </Pressable>
+    <View className="w-full flex-row items-center">
+      <Pressable onPress={() => router.back()} className="pl-2">
+        <Icon name="chevron-left" size={25} color="black" />
+      </Pressable>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 8,
-    backgroundColor: "#0284C7",
-    borderRadius: 4,
-  },
-  icon: {
-    color: "#fff",
-    marginRight: 4,
-  },
-  text: {
-    color: "#fff",
-    fontSize: 16,
-  },
-});

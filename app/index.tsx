@@ -1,5 +1,7 @@
 import { View, Text, FlatList, Pressable } from "react-native";
 import { useRouter, Link } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/Octicons";
 
 type Card = {
   id: string;
@@ -26,7 +28,7 @@ export default function Home() {
   );
 
   return (
-    <View className="flex-1 p-4">
+    <SafeAreaView className="flex-1 p-4">
       <FlatList
         data={cards}
         keyExtractor={(item) => item.id}
@@ -41,8 +43,11 @@ export default function Home() {
         href="/add"
         className="absolute bottom-6 right-6 py-3 px-5 bg-blue-500 rounded-full"
       >
-        <Text className="text-white text-base">+ Add Card</Text>
+        <View className="flex-row items-center gap-2">
+          <Icon name="plus" size={20} color="white" />
+          <Text className="text-white text-base">Add Card</Text>
+        </View>
       </Link>
-    </View>
+    </SafeAreaView>
   );
 }

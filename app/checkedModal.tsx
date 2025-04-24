@@ -7,6 +7,7 @@ import {
   Modal,
   Animated,
   Easing,
+  Image,
 } from "react-native";
 import Icon from "react-native-vector-icons/Octicons";
 
@@ -37,7 +38,7 @@ export default function CheckedModal({ visible, onClose, onClear }: Props) {
   const scale = useRef(new Animated.Value(0)).current;
 
   const showTick = () => {
-    // Ölçeği 0→1’e yaylanmalı şekilde getir
+    // Ölçeği 0→1'e yaylanmalı şekilde getir
     scale.setValue(0);
     Animated.timing(scale, {
       toValue: 1,
@@ -69,6 +70,11 @@ export default function CheckedModal({ visible, onClose, onClear }: Props) {
           <Animated.View style={{ transform: [{ scale }] }}>
             <Icon name="check-circle-fill" size={80} color="green" />
           </Animated.View>
+          <Image
+            source={{ uri: "https://picsum.photos/200/200" }}
+            className="w-32 h-32 rounded-lg mt-4"
+            resizeMode="cover"
+          />
           <Text className={"text-2xl font-semibold mt-4 text-center"}>
             Kart başarıyla oluşturuldu!
           </Text>
