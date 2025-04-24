@@ -26,7 +26,7 @@ export default function Home() {
   );
 
   return (
-    <View className="flex-1 p-4 mt-16">
+    <View className="flex-1 p-4">
       <FlatList
         data={cards}
         keyExtractor={(item) => item.id}

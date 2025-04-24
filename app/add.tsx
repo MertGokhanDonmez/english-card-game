@@ -43,7 +43,7 @@ export default function AddScreen() {
   };
 
   return (
-    <View className="p-4 flex items-center justify-center flex-1 mt-16">
+    <View className="p-4 flex items-center justify-center flex-1">
       {imageUri && (
         <>
           <View className="mt-4">
