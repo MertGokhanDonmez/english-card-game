@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   StyleSheet,
+  TextInput,
 } from "react-native";
 import { FlashCardType } from "../types/flashCard";
 import ImagePickerModal from "../app/imageModal";
@@ -18,6 +19,7 @@ export default function AddScreen() {
   const [imageUri, setImageUri] = useState<string | "">("");
   const [modalVisible, setModalVisible] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [isCardFlipped, setIsCardFlipped] = useState(false);
 
   const handleImageSelect = (uri: string) => {
     setImageUri(uri);
@@ -44,10 +46,6 @@ export default function AddScreen() {
     tags: [],
   };
 
-  const addBackText = () => {
-    // card will be flipped
-  };
-
   return (
     <SafeAreaView className={`flex-1 p-4`}>
       <ImagePickerModal
@@ -59,68 +57,74 @@ export default function AddScreen() {
       <BackButton />
 
       <View className="items-center justify-center flex-1">
-        <View className="flex flex-row gap-[10%] mb-6">
-          <TouchableOpacity
-            className="rounded-2xl items-center border-2 border-black overflow-hidden"
-            onPress={() => {
-              setModalVisible(true);
-            }}
-          >
-            {imageUri ? (
-              <Image
-                source={{ uri: imageUri }}
-                className="w-[300px] h-[500px]"
-              />
-            ) : (
-              <Image
-                source={require("../assets/images/card_add_image.png")}
-                className="w-[300px] h-[500px]"
-              />
-            )}
-          </TouchableOpacity>
+        {isCardFlipped ? (
+          <>
+            <TextInput
+              className="rounded-2xl items-center border-2 border-black overflow-hidden"
+              placeholder="Back Text"
+              value={backText}
+              onChangeText={setBackText}
+            />
+            <TouchableOpacity
+              className="bg-green-500 rounded-lg p-4 items-center"
+              onPress={() => {
+                if (!imageUri || !backText) {
+                  Alert.alert("Hata", "Lütfen tüm alanları doldurun");
+                  return;
+                }
+                handleCardCreate(virtualCard);
+              }}
+            >
+              <Text className="text-center text-white">Kaydet</Text>
+            </TouchableOpacity>
 
-          {imageUri && backText ? (
-            <>
+            <CheckedModal
+              visible={showAlert}
+              onClose={() => setShowAlert(false)}
+              onClear={() => handleClear()}
+              onCardCreate={() => setIsCardFlipped(false)}
+            />
+          </>
+        ) : (
+          <>
+            <TouchableOpacity
+              className="rounded-2xl items-center border-2 border-black overflow-hidden"
+              onPress={() => {
+                setModalVisible(true);
+              }}
+            >
+              {imageUri ? (
+                <Image
+                  source={{ uri: imageUri }}
+                  className="w-[300px] h-[500px]"
+                />
+              ) : (
+                <Image
+                  source={require("../assets/images/card_add_image.png")}
+                  className="w-[300px] h-[500px]"
+                />
+              )}
+            </TouchableOpacity>
+            <View className="flex py-8 flex-row gap-[10%]">
+              <TouchableOpacity
+                className="bg-orange-600 rounded-lg p-4 items-center"
+                onPress={() => {
+                  setModalVisible(true);
+                }}
+              >
+                <Text className="text-center text-white">Tekrar Dene</Text>
+              </TouchableOpacity>
               <TouchableOpacity
                 className="bg-green-500 rounded-lg p-4 items-center"
                 onPress={() => {
-                  if (!imageUri || !backText) {
-                    Alert.alert("Hata", "Lütfen tüm alanları doldurun");
-                    return;
-                  }
-                  handleCardCreate(virtualCard);
+                  setIsCardFlipped(true);
                 }}
               >
-                <Text className="text-center text-white">Kaydet</Text>
+                <Text className="text-center text-white">Onayla</Text>
               </TouchableOpacity>
-
-              <CheckedModal
-                visible={showAlert}
-                onClose={() => setShowAlert(false)}
-                onClear={() => handleClear()}
-              />
-            </>
-          ) : null}
-        </View>
-
-        <View className="flex py-8 flex-row gap-[10%]">
-          <TouchableOpacity
-            className="bg-orange-600 rounded-lg p-4 items-center"
-            onPress={() => {
-              setModalVisible(true);
-            }}
-          >
-            <Text className="text-center text-white">Tekrar Dene</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            className="bg-green-500 rounded-lg p-4 items-center"
-            onPress={() => {
-              addBackText();
-            }}
-          >
-            <Text className="text-center text-white">Onayla</Text>
-          </TouchableOpacity>
-        </View>
+            </View>
+          </>
+        )}
       </View>
     </SafeAreaView>
   );

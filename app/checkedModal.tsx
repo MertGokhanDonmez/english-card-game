@@ -16,18 +16,21 @@ type Props = {
   onClose: () => void;
   message?: string;
   onClear: () => void;
+  onCardCreate: () => void;
 };
 
-export default function CheckedModal({ visible, onClose, onClear }: Props) {
+export default function CheckedModal({
+  visible,
+  onClose,
+  onClear,
+  onCardCreate,
+}: Props) {
   const router = useRouter();
 
   const handleClose = () => {
     onClear();
     onClose();
-  };
-
-  const handleNewCard = () => {
-    handleClose();
+    onCardCreate();
   };
 
   const handleGoBack = () => {
@@ -38,7 +41,6 @@ export default function CheckedModal({ visible, onClose, onClear }: Props) {
   const scale = useRef(new Animated.Value(0)).current;
 
   const showTick = () => {
-    // Ölçeği 0→1'e yaylanmalı şekilde getir
     scale.setValue(0);
     Animated.timing(scale, {
       toValue: 1,
@@ -70,11 +72,6 @@ export default function CheckedModal({ visible, onClose, onClear }: Props) {
           <Animated.View style={{ transform: [{ scale }] }}>
             <Icon name="check-circle-fill" size={80} color="green" />
           </Animated.View>
-          <Image
-            source={{ uri: "https://picsum.photos/200/200" }}
-            className="w-32 h-32 rounded-lg mt-4"
-            resizeMode="cover"
-          />
           <Text className={"text-2xl font-semibold mt-4 text-center"}>
             Kart başarıyla oluşturuldu!
           </Text>
@@ -83,7 +80,7 @@ export default function CheckedModal({ visible, onClose, onClear }: Props) {
           </Text>
           <View className={"flex-row gap-4"}>
             <TouchableOpacity
-              onPress={handleNewCard}
+              onPress={handleClose}
               className={"bg-green-500 px-6 py-2 rounded-lg mt-6"}
             >
               <Text className={"text-white font-bold"}>Evet</Text>
