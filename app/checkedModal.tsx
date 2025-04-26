@@ -17,6 +17,8 @@ type Props = {
   message?: string;
   onClear: () => void;
   onCardCreate: () => void;
+  flipAnimation?: Animated.Value;
+  setIsCardFlipped?: (value: boolean) => void;
 };
 
 export default function CheckedModal({
@@ -24,6 +26,8 @@ export default function CheckedModal({
   onClose,
   onClear,
   onCardCreate,
+  flipAnimation,
+  setIsCardFlipped,
 }: Props) {
   const router = useRouter();
 
@@ -34,8 +38,12 @@ export default function CheckedModal({
   };
 
   const handleGoBack = () => {
-    router.push("/");
-    handleClose();
+    onCardCreate();
+    onClear();
+    onClose();
+    setTimeout(() => {
+      router.push("/");
+    }, 100);
   };
 
   const scale = useRef(new Animated.Value(0)).current;
