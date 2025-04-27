@@ -15,9 +15,9 @@ export default function ImagePickerModal({
   const pickImage = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ["images", "videos"],
-        allowsEditing: false,
-        aspect: [3, 4],
+        mediaTypes: ["images"],
+        allowsEditing: true,
+        aspect: [3, 5],
         quality: 0.7,
       });
 
@@ -42,7 +42,7 @@ export default function ImagePickerModal({
       let result = await ImagePicker.launchCameraAsync({
         mediaTypes: ["images", "videos"],
         allowsEditing: true,
-        aspect: [4, 3],
+        aspect: [3, 5],
         quality: 1,
       });
 

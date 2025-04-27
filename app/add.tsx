@@ -64,11 +64,6 @@ export default function AddScreen() {
     outputRange: ["180deg", "360deg"],
   });
 
-  const backOpacity = flipAnimation.interpolate({
-    inputRange: [0, 90, 91],
-    outputRange: [0, 0, 1],
-  });
-
   const flipToBackStyle = {
     transform: [{ perspective: 1000 }, { rotateY: backInterpolate }],
     backfaceVisibility: "hidden" as const,
