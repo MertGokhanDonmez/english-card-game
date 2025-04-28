@@ -142,6 +142,7 @@ export default function AddScreen() {
               value={backText}
               onChangeText={setBackText}
               autoFocus={isCardFlipped}
+              caretHidden={true}
             />
           </Animated.View>
         </View>
