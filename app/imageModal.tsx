@@ -30,7 +30,6 @@ export default function ImagePickerModal({
         aspect: [3, 5],
         quality: 0.7,
       });
-
       console.log(result);
 
       if (!result.canceled) {

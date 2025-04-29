@@ -13,6 +13,7 @@ import ImagePickerModal from "../app/imageModal";
 import CheckedModal from "./checkedModal";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BackButton from "@/components/BackButton";
+import { setItem } from "@/utils/storage";
 
 export default function AddScreen() {
   const [backText, setBackText] = useState("");
@@ -32,10 +33,15 @@ export default function AddScreen() {
     setBackText("");
   };
 
-  const handleCardCreate = (card: FlashCardType) => {
-    console.log("Kart Oluşturuldu:", card);
-    if (card) {
+  const handleCardCreate = async (card: FlashCardType) => {
+    try {
+      // Save the card to storage using its ID as the key
+      await setItem(card.backText, card);
+      console.log("Card saved successfully:", card);
       setShowAlert(true);
+    } catch (error) {
+      console.error("Error saving card:", error);
+      Alert.alert("Error", "Failed to save the card. Please try again.");
     }
   };
 
