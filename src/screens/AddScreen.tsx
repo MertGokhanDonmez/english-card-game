@@ -7,13 +7,19 @@ import {
   Image,
   Animated,
   TextInput,
+  StyleSheet,
 } from "react-native";
-import { FlashCardType } from "../types/flashCard";
-import ImagePickerModal from "../app/imageModal";
-import CheckedModal from "./checkedModal";
+import { FlashCardType } from "@/types/flashCard";
+import ImagePickerModal from "@/components/ImagePickerModal";
+import CheckedModal from "@/components/CheckedModal";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BackButton from "@/components/BackButton";
 import { setItem } from "@/utils/storage";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "@/src/types/navigation";
+
+type AddScreenNavigationProp = StackNavigationProp<RootStackParamList, "Add">;
 
 export default function AddScreen() {
   const [backText, setBackText] = useState("");
@@ -22,6 +28,7 @@ export default function AddScreen() {
   const [showAlert, setShowAlert] = useState(false);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const flipAnimation = useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation<AddScreenNavigationProp>();
 
   const handleImageSelect = (uri: string) => {
     setImageUri(uri);
@@ -99,38 +106,37 @@ export default function AddScreen() {
   };
 
   return (
-    <SafeAreaView className={`flex-1 p-4`}>
+    <SafeAreaView style={styles.safeArea}>
       <ImagePickerModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
         onImageSelected={handleImageSelect}
       />
 
-      <BackButton />
+      <BackButton navigation={navigation} />
 
-      <View className="items-center flex-1">
-        <View className="relative w-[300px] h-[500px] mt-20">
+      <View style={styles.centerContainer}>
+        <View style={styles.cardContainer}>
           <TouchableOpacity
-            className="absolute w-full h-full"
-            style={{ zIndex: isCardFlipped ? 0 : 10 }}
+            style={[styles.absoluteFill, { zIndex: isCardFlipped ? 0 : 10 }]}
             onPress={() => {
               if (!isCardFlipped) {
                 setModalVisible(true);
               }
             }}
           >
-            <Animated.View className="w-full h-full" style={flipToFrontStyle}>
-              <View className="w-full h-full rounded-2xl border-2 border-black overflow-hidden">
+            <Animated.View style={[styles.fullSize, flipToFrontStyle]}>
+              <View style={styles.cardFront}>
                 {imageUri ? (
                   <Image
                     source={{ uri: imageUri }}
-                    className="w-full h-full"
+                    style={styles.cardImage}
                     resizeMode="cover"
                   />
                 ) : (
                   <Image
-                    source={require("../assets/images/card_add_image.png")}
-                    className="w-full h-full"
+                    source={require("../../assets/images/card_add_image.png")}
+                    style={styles.cardImage}
                     resizeMode="cover"
                   />
                 )}
@@ -138,12 +144,9 @@ export default function AddScreen() {
             </Animated.View>
           </TouchableOpacity>
 
-          <Animated.View
-            style={flipToBackStyle}
-            className="absolute w-full h-full rounded-2xl items-center justify-center border-2 border-black overflow-hidden bg-white"
-          >
+          <Animated.View style={[flipToBackStyle, styles.cardBack]}>
             <TextInput
-              className="w-full h-full text-center text-2xl p-4"
+              style={styles.textInput}
               placeholder="Type the word"
               value={backText}
               onChangeText={setBackText}
@@ -153,27 +156,24 @@ export default function AddScreen() {
           </Animated.View>
         </View>
 
-        <View className="flex py-8 flex-row gap-[10%]">
+        <View style={styles.buttonContainer}>
           {!isCardFlipped ? (
             <>
               <TouchableOpacity
-                className="bg-orange-600 rounded-lg p-4 items-center"
+                style={styles.retryButton}
                 onPress={() => {
                   setModalVisible(true);
                 }}
               >
-                <Text className="text-center text-white">Tekrar Dene</Text>
+                <Text style={styles.buttonText}>Tekrar Dene</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                className="bg-green-500 rounded-lg p-4 items-center"
-                onPress={flipCard}
-              >
-                <Text className="text-center text-white">Onayla</Text>
+              <TouchableOpacity style={styles.confirmButton} onPress={flipCard}>
+                <Text style={styles.buttonText}>Onayla</Text>
               </TouchableOpacity>
             </>
           ) : (
             <TouchableOpacity
-              className="bg-green-500 rounded-lg p-4 items-center"
+              style={styles.confirmButton}
               onPress={() => {
                 if (!imageUri || !backText) {
                   Alert.alert("Hata", "Lütfen tüm alanları doldurun");
@@ -182,7 +182,7 @@ export default function AddScreen() {
                 handleCardCreate(virtualCard);
               }}
             >
-              <Text className="text-center text-white">Kaydet</Text>
+              <Text style={styles.buttonText}>Kaydet</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -190,7 +190,7 @@ export default function AddScreen() {
         <CheckedModal
           visible={showAlert}
           onClose={() => setShowAlert(false)}
-          onClear={() => handleClear()}
+          onClear={handleClear}
           onCardCreate={() => {
             Animated.spring(flipAnimation, {
               toValue: 0,
@@ -200,8 +200,88 @@ export default function AddScreen() {
             }).start();
             setIsCardFlipped(false);
           }}
+          flipAnimation={flipAnimation}
+          setIsCardFlipped={setIsCardFlipped}
         />
       </View>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    padding: 16,
+  },
+  centerContainer: {
+    alignItems: "center",
+    flex: 1,
+  },
+  cardContainer: {
+    position: "relative",
+    width: 300,
+    height: 500,
+    marginTop: 80,
+  },
+  absoluteFill: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+  },
+  fullSize: {
+    width: "100%",
+    height: "100%",
+  },
+  cardFront: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: "black",
+    overflow: "hidden",
+  },
+  cardImage: {
+    width: "100%",
+    height: "100%",
+  },
+  cardBack: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "black",
+    overflow: "hidden",
+    backgroundColor: "white",
+  },
+  textInput: {
+    width: "100%",
+    height: "100%",
+    textAlign: "center",
+    fontSize: 24,
+    padding: 16,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    paddingVertical: 32,
+    gap: "10%",
+  },
+  retryButton: {
+    backgroundColor: "#ea580c",
+    borderRadius: 8,
+    padding: 16,
+    alignItems: "center",
+  },
+  confirmButton: {
+    backgroundColor: "#22c55e",
+    borderRadius: 8,
+    padding: 16,
+    alignItems: "center",
+  },
+  buttonText: {
+    textAlign: "center",
+    color: "white",
+  },
+});

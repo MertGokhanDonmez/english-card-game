@@ -2,32 +2,35 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   Image,
   ImageSourcePropType,
-  StyleProp,
-  ViewStyle,
+  TouchableWithoutFeedback,
+  Dimensions,
+  StyleSheet,
 } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-  withTiming,
-  Easing,
 } from "react-native-reanimated";
 
 type FlashCardProps = {
   backText: string;
   imageUri: string | ImageSourcePropType;
-  containerStyle?: StyleProp<ViewStyle>;
+  canFlip?: boolean;
+  index: number;
   onPress?: () => void;
 };
+
+export const cardWidth = Dimensions.get("window").width * 0.85;
+export const cardHeight = (cardWidth / 3) * 5;
 
 const FlashCard: React.FC<FlashCardProps> = ({
   imageUri,
   backText,
-  containerStyle,
+  canFlip = true,
   onPress,
+  index,
 }) => {
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const rotation = useSharedValue(0);
@@ -43,6 +46,9 @@ const FlashCard: React.FC<FlashCardProps> = ({
         },
       ],
       backfaceVisibility: "hidden",
+      position: "relative",
+      width: cardWidth,
+      height: cardHeight,
     };
   });
 
@@ -58,9 +64,8 @@ const FlashCard: React.FC<FlashCardProps> = ({
       ],
       backfaceVisibility: "hidden",
       position: "absolute",
-      width: "100%",
-      height: "100%",
-      zIndex: isCardFlipped ? 10 : 0,
+      width: cardWidth,
+      height: cardHeight,
     };
   });
 
@@ -79,34 +84,81 @@ const FlashCard: React.FC<FlashCardProps> = ({
   };
 
   return (
-    <View className="items-center flex-1">
-      <TouchableOpacity
-        className="relative w-[300px] h-[500px] mt-20"
-        onPress={flipCard}
-        activeOpacity={0.9}
-      >
+    <Animated.View
+      style={[
+        styles.cardContainer,
+        {
+          zIndex: -index,
+          transform: [
+            {
+              translateX: index * 20,
+            },
+          ],
+        },
+      ]}
+    >
+      <TouchableWithoutFeedback onPress={canFlip ? flipCard : undefined}>
         <Animated.View style={frontAnimatedStyle}>
-          <View className="w-full h-full rounded-2xl border-2 border-black overflow-hidden">
+          <View style={styles.cardFront}>
             <Image
               source={
                 typeof imageUri === "string" ? { uri: imageUri } : imageUri
               }
-              className="w-full h-full"
-              resizeMode="cover"
+              style={styles.cardImage}
             />
           </View>
         </Animated.View>
+      </TouchableWithoutFeedback>
 
+      <TouchableWithoutFeedback onPress={flipCard}>
         <Animated.View style={backAnimatedStyle}>
-          <View className="w-full h-full rounded-2xl items-center justify-center border-2 border-black overflow-hidden bg-white">
-            <Text className="text-2xl font-semibold text-center px-4">
-              {backText}
-            </Text>
+          <View style={styles.cardBack}>
+            <Text style={styles.backText}>{backText}</Text>
           </View>
         </Animated.View>
-      </TouchableOpacity>
-    </View>
+      </TouchableWithoutFeedback>
+    </Animated.View>
   );
 };
+
+const styles = StyleSheet.create({
+  cardContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+  },
+  cardFront: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "black",
+    overflow: "hidden",
+    backgroundColor: "white",
+  },
+  cardImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
+  cardBack: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "black",
+    overflow: "hidden",
+    backgroundColor: "white",
+  },
+  backText: {
+    fontSize: 24,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+});
 
 export default FlashCard;
