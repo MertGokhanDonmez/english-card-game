@@ -9,6 +9,9 @@ import {
   StyleSheet,
 } from "react-native";
 import Animated, {
+  Extrapolation,
+  interpolate,
+  SharedValue,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
@@ -19,9 +22,12 @@ type FlashCardProps = {
   imageUri: string | ImageSourcePropType;
   canFlip?: boolean;
   index: number;
+  scrollOffset: SharedValue<number>;
   onPress?: () => void;
 };
 
+export const windowWidth = Dimensions.get("window").width;
+export const windowHeight = Dimensions.get("window").height;
 export const cardWidth = Dimensions.get("window").width * 0.85;
 export const cardHeight = (cardWidth / 3) * 5;
 
@@ -31,6 +37,7 @@ const FlashCard: React.FC<FlashCardProps> = ({
   canFlip = true,
   onPress,
   index,
+  scrollOffset,
 }) => {
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const rotation = useSharedValue(0);
@@ -83,18 +90,57 @@ const FlashCard: React.FC<FlashCardProps> = ({
     onPress?.();
   };
 
+  const rConteinerStyle = useAnimatedStyle(() => {
+    const activeIndex = scrollOffset.value / cardWidth;
+    const paddingLeft = (windowWidth - cardWidth - 50) / 2;
+
+    const translateX = interpolate(
+      activeIndex,
+      [index - 3, index - 2, index - 1, index, index + 1],
+      [21, 14, 7, 0, -cardWidth - paddingLeft * 2],
+      Extrapolation.CLAMP
+    );
+
+    const translateY = interpolate(
+      activeIndex,
+      [index - 3, index - 2, index - 1, index],
+      [0, 7, 14, 21],
+      Extrapolation.CLAMP
+    );
+
+    const scale = interpolate(
+      activeIndex,
+      [index - 2, index - 1, index, index + 1],
+      [0.8, 0.9, 1, 1.1],
+      Extrapolation.CLAMP
+    );
+
+    return {
+      left: paddingLeft,
+      transform: [
+        {
+          translateX: scrollOffset.value + translateX,
+        },
+        {
+          translateY: translateY,
+        },
+        // {
+        //   scale: scale,
+        // },
+      ],
+    };
+  });
+
   return (
     <Animated.View
       style={[
         styles.cardContainer,
-        {
-          zIndex: -index,
-          transform: [
-            {
-              translateX: index * 20,
-            },
-          ],
-        },
+        [
+          {
+            zIndex: -index,
+          },
+          rConteinerStyle,
+        ],
       ]}
     >
       <TouchableWithoutFeedback onPress={canFlip ? flipCard : undefined}>

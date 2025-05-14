@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Octicons";
 import { getAllItems } from "@/utils/storage";
 import { useState, useEffect } from "react";
 import { FlashCardType } from "@/types/flashCard";
-import FlashCard, { cardHeight, cardWidth } from "@/components/FlashCard";
+import FlashCard, { cardWidth, windowWidth } from "@/components/FlashCard";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "@/src/types/navigation";
@@ -12,6 +12,7 @@ import Animated, {
   useAnimatedRef,
   useSharedValue,
   useAnimatedScrollHandler,
+  useDerivedValue,
 } from "react-native-reanimated";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
@@ -21,6 +22,7 @@ export default function HomeScreen() {
   const animatedRef = useAnimatedRef<Animated.ScrollView>();
   const scrollViewOffset = useSharedValue(0);
   const navigation = useNavigation<HomeScreenNavigationProp>();
+  const listPadding = windowWidth - cardWidth;
 
   // Define the scroll handler at the component level
   const scrollHandler = useAnimatedScrollHandler({
@@ -42,21 +44,30 @@ export default function HomeScreen() {
     console.log("Fetched cards:", cardsArray);
   };
 
+  // useDerivedValue(() => {
+  //   console.log("Scroll offset:", scrollViewOffset.value);
+  // }, []);
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <Text style={styles.title}>My Cards</Text>
 
         {cards.length > 0 ? (
-          <View style={[styles.fullWidth, { height: cardHeight }]}>
+          <View style={[styles.scrollCardView]}>
             <Animated.ScrollView
               ref={animatedRef}
               horizontal
+              snapToInterval={cardWidth}
+              decelerationRate={"fast"}
+              disableIntervalMomentum
+              showsHorizontalScrollIndicator={false}
               contentContainerStyle={{
-                width: cardWidth * cards.length,
+                width: cardWidth * cards.length + listPadding,
               }}
               scrollEventThrottle={16}
               onScroll={scrollHandler}
+              style={{ paddingTop: 16 }}
             >
               {cards.map((card, index) => {
                 return (
@@ -65,6 +76,7 @@ export default function HomeScreen() {
                     key={index}
                     imageUri={card.frontImage}
                     backText={card.backText}
+                    scrollOffset={scrollViewOffset}
                   />
                 );
               })}
@@ -106,8 +118,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 16, // mb-4
   },
-  fullWidth: {
-    width: "100%", // w-full
+  scrollCardView: {
+    width: "100%",
+    height: "100%", // h-64
   },
   emptyContainer: {
     alignItems: "center",
