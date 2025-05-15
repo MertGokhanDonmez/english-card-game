@@ -81,6 +81,11 @@ export default function HomeScreen() {
               }}
               scrollEventThrottle={16}
               onScroll={scrollHandler}
+              onEndReached={() => {
+                if (animatedFlatRef.current) {
+                  animatedFlatRef.current.scrollToEnd();
+                }
+              }}
               style={{ paddingTop: 16 }}
             />
           </View>
