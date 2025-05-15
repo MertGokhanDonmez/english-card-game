@@ -1,4 +1,3 @@
-// components/BackButton.tsx
 import React from "react";
 import { Pressable, View, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Octicons";

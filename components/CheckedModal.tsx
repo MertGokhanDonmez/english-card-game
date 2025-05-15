@@ -6,7 +6,6 @@ import {
   Modal,
   Animated,
   Easing,
-  Image,
   StyleSheet,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -72,7 +71,6 @@ export default function CheckedModal({
 
       // Reset the card to front side
       if (flipAnimation && setIsCardFlipped) {
-        // Use a setValue instead of Animated.timing to avoid the animatedRef.getTag issue
         flipAnimation.setValue(0);
         setIsCardFlipped(false);
       }

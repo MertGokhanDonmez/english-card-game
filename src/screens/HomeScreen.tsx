@@ -20,6 +20,7 @@ type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 export default function HomeScreen() {
   const [cards, setCards] = useState<FlashCardType[]>([]);
   const animatedRef = useAnimatedRef<Animated.ScrollView>();
+  const animatedFlatRef = useAnimatedRef<Animated.FlatList<FlashCardType>>();
   const scrollViewOffset = useSharedValue(0);
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const listPadding = windowWidth - cardWidth;
@@ -55,8 +56,21 @@ export default function HomeScreen() {
 
         {cards.length > 0 ? (
           <View style={[styles.scrollCardView]}>
-            <Animated.ScrollView
-              ref={animatedRef}
+            <Animated.FlatList
+              data={cards.reverse()}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item, index }) => (
+                <View>
+                  <FlashCard
+                    index={cards.length - 1 - index}
+                    key={index}
+                    imageUri={item.frontImage}
+                    backText={item.backText}
+                    scrollOffset={scrollViewOffset}
+                  />
+                </View>
+              )}
+              ref={animatedFlatRef}
               horizontal
               snapToInterval={cardWidth}
               decelerationRate={"fast"}
@@ -68,19 +82,7 @@ export default function HomeScreen() {
               scrollEventThrottle={16}
               onScroll={scrollHandler}
               style={{ paddingTop: 16 }}
-            >
-              {cards.map((card, index) => {
-                return (
-                  <FlashCard
-                    index={index}
-                    key={index}
-                    imageUri={card.frontImage}
-                    backText={card.backText}
-                    scrollOffset={scrollViewOffset}
-                  />
-                );
-              })}
-            </Animated.ScrollView>
+            />
           </View>
         ) : (
           <View style={styles.emptyContainer}>
@@ -107,46 +109,46 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#f9fafb", // bg-gray-50
+    backgroundColor: "#f9fafb",
   },
   container: {
     flex: 1,
-    padding: 16, // p-4
+    padding: 16,
   },
   title: {
-    fontSize: 24, // text-2xl
+    fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 16, // mb-4
+    marginBottom: 16,
   },
   scrollCardView: {
     width: "100%",
-    height: "100%", // h-64
+    height: "100%",
   },
   emptyContainer: {
     alignItems: "center",
     justifyContent: "center",
-    flex: 1, // items-center justify-center flex-1
+    flex: 1,
   },
   emptyTextPrimary: {
     textAlign: "center",
-    fontSize: 18, // text-lg
+    fontSize: 18,
     fontWeight: "bold",
-    marginTop: 16, // mt-4
+    marginTop: 16,
   },
   emptyTextSecondary: {
     textAlign: "center",
-    fontSize: 14, // text-sm
-    color: "#6b7280", // text-gray-500
-    marginTop: 4, // mt-1
+    fontSize: 14,
+    color: "#6b7280",
+    marginTop: 4,
   },
   addButton: {
     position: "absolute",
-    bottom: 32, // bottom-8
-    right: 16, // right-4
-    backgroundColor: "#3b82f6", // bg-blue-500
-    paddingVertical: 12, // py-3
-    paddingHorizontal: 20, // px-5
-    borderRadius: 30, // rounded-full
+    bottom: 32,
+    right: 16,
+    backgroundColor: "#3b82f6",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 30,
     elevation: 6,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -160,6 +162,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontWeight: "bold",
-    marginLeft: 8, // ml-2
+    marginLeft: 8,
   },
 });

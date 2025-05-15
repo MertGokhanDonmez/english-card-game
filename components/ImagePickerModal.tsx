@@ -26,7 +26,7 @@ export default function ImagePickerModal({
     try {
       setIsLoading(true);
       let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        mediaTypes: "images",
         allowsEditing: true,
         aspect: [3, 5],
         quality: 0.7,

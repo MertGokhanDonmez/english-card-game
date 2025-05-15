@@ -86,7 +86,6 @@ export default function AddScreen() {
   // Card Animation
   const flipCard = () => {
     if (isCardFlipped) {
-      // back to front
       Animated.spring(flipAnimation, {
         toValue: 0,
         friction: 12,
@@ -94,7 +93,6 @@ export default function AddScreen() {
         useNativeDriver: true,
       }).start();
     } else {
-      // front to back
       Animated.spring(flipAnimation, {
         toValue: 180,
         friction: 12,
