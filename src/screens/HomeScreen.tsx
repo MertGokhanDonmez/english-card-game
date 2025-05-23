@@ -25,7 +25,6 @@ export default function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const listPadding = windowWidth - cardWidth;
 
-  // Define the scroll handler at the component level
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
       scrollViewOffset.value = event.contentOffset.x;

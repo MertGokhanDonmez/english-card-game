@@ -42,7 +42,6 @@ export default function AddScreen() {
 
   const handleCardCreate = async (card: FlashCardType) => {
     try {
-      // Save the card to storage using its ID as the key
       await setItem(card.backText, card);
       console.log("Card saved successfully:", card);
       setShowAlert(true);
@@ -105,14 +104,29 @@ export default function AddScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <BackButton navigation={navigation} />
+
       <ImagePickerModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
         onImageSelected={handleImageSelect}
       />
-
-      <BackButton navigation={navigation} />
-
+      <CheckedModal
+        visible={showAlert}
+        onClose={() => setShowAlert(false)}
+        onClear={handleClear}
+        onCardCreate={() => {
+          Animated.spring(flipAnimation, {
+            toValue: 0,
+            friction: 12,
+            tension: 10,
+            useNativeDriver: true,
+          }).start();
+          setIsCardFlipped(false);
+        }}
+        flipAnimation={flipAnimation}
+        setIsCardFlipped={setIsCardFlipped}
+      />
       <View style={styles.centerContainer}>
         <View style={styles.cardContainer}>
           <TouchableOpacity
@@ -184,23 +198,6 @@ export default function AddScreen() {
             </TouchableOpacity>
           )}
         </View>
-
-        <CheckedModal
-          visible={showAlert}
-          onClose={() => setShowAlert(false)}
-          onClear={handleClear}
-          onCardCreate={() => {
-            Animated.spring(flipAnimation, {
-              toValue: 0,
-              friction: 12,
-              tension: 10,
-              useNativeDriver: true,
-            }).start();
-            setIsCardFlipped(false);
-          }}
-          flipAnimation={flipAnimation}
-          setIsCardFlipped={setIsCardFlipped}
-        />
       </View>
     </SafeAreaView>
   );
