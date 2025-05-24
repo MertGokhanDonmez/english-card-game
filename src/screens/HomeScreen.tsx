@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Octicons";
 import { getAllItems } from "@/utils/storage";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FlashCardType } from "@/types/flashCard";
 import FlashCard, { cardWidth, windowWidth } from "@/components/FlashCard";
 import { useNavigation } from "@react-navigation/native";
@@ -24,6 +24,7 @@ export default function HomeScreen() {
   const scrollViewOffset = useSharedValue(0);
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const listPadding = windowWidth - cardWidth;
+  const lastEndReachedTime = useRef(0);
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -41,7 +42,6 @@ export default function HomeScreen() {
       (item) => item && typeof item === "object" && "id" in item
     ) as FlashCardType[];
     setCards(cardsArray);
-    console.log("Fetched cards:", cardsArray);
   };
 
   // useDerivedValue(() => {
@@ -82,7 +82,9 @@ export default function HomeScreen() {
               onScroll={scrollHandler}
               onEndReached={() => {
                 if (animatedFlatRef.current) {
-                  animatedFlatRef.current.scrollToEnd();
+                  setTimeout(() => {
+                    animatedFlatRef.current?.scrollToEnd();
+                  }, 150);
                 }
               }}
               style={{ paddingTop: 16 }}

@@ -128,6 +128,11 @@ export default function AddScreen() {
         setIsCardFlipped={setIsCardFlipped}
       />
       <View style={styles.centerContainer}>
+        {imageUri !== "" ? (
+          <Text style={styles.title}>Add a Description</Text>
+        ) : (
+          <Text style={styles.title}>Add a Picture</Text>
+        )}
         <View style={styles.cardContainer}>
           <TouchableOpacity
             style={[styles.absoluteFill, { zIndex: isCardFlipped ? 0 : 10 }]}
@@ -169,34 +174,41 @@ export default function AddScreen() {
         </View>
 
         <View style={styles.buttonContainer}>
-          {!isCardFlipped ? (
+          {imageUri !== "" ? (
             <>
-              <TouchableOpacity
-                style={styles.retryButton}
-                onPress={() => {
-                  setModalVisible(true);
-                }}
-              >
-                <Text style={styles.buttonText}>Tekrar Dene</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.confirmButton} onPress={flipCard}>
-                <Text style={styles.buttonText}>Onayla</Text>
-              </TouchableOpacity>
+              {!isCardFlipped ? (
+                <>
+                  <TouchableOpacity
+                    style={styles.retryButton}
+                    onPress={() => {
+                      setModalVisible(true);
+                    }}
+                  >
+                    <Text style={styles.buttonText}>Tekrar Dene</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.confirmButton}
+                    onPress={flipCard}
+                  >
+                    <Text style={styles.buttonText}>Onayla</Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <TouchableOpacity
+                  style={styles.confirmButton}
+                  onPress={() => {
+                    if (!imageUri || !backText) {
+                      Alert.alert("Hata", "Lütfen tüm alanları doldurun");
+                      return;
+                    }
+                    handleCardCreate(virtualCard);
+                  }}
+                >
+                  <Text style={styles.buttonText}>Kaydet</Text>
+                </TouchableOpacity>
+              )}
             </>
-          ) : (
-            <TouchableOpacity
-              style={styles.confirmButton}
-              onPress={() => {
-                if (!imageUri || !backText) {
-                  Alert.alert("Hata", "Lütfen tüm alanları doldurun");
-                  return;
-                }
-                handleCardCreate(virtualCard);
-              }}
-            >
-              <Text style={styles.buttonText}>Kaydet</Text>
-            </TouchableOpacity>
-          )}
+          ) : null}
         </View>
       </View>
     </SafeAreaView>
@@ -212,11 +224,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
   },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
   cardContainer: {
     position: "relative",
     width: 300,
     height: 500,
-    marginTop: 80,
+    marginTop: 50,
+    marginBottom: 10,
   },
   absoluteFill: {
     position: "absolute",
@@ -264,13 +281,13 @@ const styles = StyleSheet.create({
     gap: "10%",
   },
   retryButton: {
-    backgroundColor: "#ea580c",
+    backgroundColor: "#db320f",
     borderRadius: 8,
     padding: 16,
     alignItems: "center",
   },
   confirmButton: {
-    backgroundColor: "#22c55e",
+    backgroundColor: "#25b058",
     borderRadius: 8,
     padding: 16,
     alignItems: "center",
@@ -278,5 +295,6 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     color: "white",
+    fontWeight: "bold",
   },
 });

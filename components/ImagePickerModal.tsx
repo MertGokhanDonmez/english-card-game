@@ -27,9 +27,9 @@ export default function ImagePickerModal({
       setIsLoading(true);
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: "images",
-        allowsEditing: true,
-        aspect: [3, 5],
-        quality: 0.7,
+        // allowsEditing: true,
+        // aspect: [3, 5],
+        quality: 0.8,
       });
       console.log(result);
 
