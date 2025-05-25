@@ -17,6 +17,8 @@
   "dependencies": {
     "3": "^2.1.0",
     "@expo/vector-icons": "^14.0.2",
+    "@lingui/core": "^5.3.1",
+    "@lingui/react": "^5.3.1",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.1.9",
@@ -34,6 +36,7 @@
     "expo-symbols": "~0.2.2",
     "expo-system-ui": "~4.0.9",
     "expo-web-browser": "~14.0.2",
+    "make-plural": "^7.4.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-native": "0.76.9",
@@ -50,6 +53,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@lingui/babel-plugin-extract-messages": "^5.3.1",
+    "@lingui/babel-plugin-lingui-macro": "^5.3.1",
+    "@lingui/babel-plugin-transform-js": "^2.9.2",
+    "@lingui/cli": "^5.3.1",
     "@types/jest": "^29.5.12",
     "@types/react": "~18.3.12",
     "@types/react-native-vector-icons": "^6.4.18",

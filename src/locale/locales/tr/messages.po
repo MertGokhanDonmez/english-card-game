@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Language: tr\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Content-Type: \n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#: src/screens/AddScreen.tsx:135
+msgid "Add a Description"
+msgstr "Bir Açıklama Ekle"
+
+#: src/screens/AddScreen.tsx:139
+msgid "Add a Picture"
+msgstr "Bir Görsel Ekle"
+
+#: src/screens/HomeScreen.tsx:116
+msgid "Add Card"
+msgstr "Kart Ekle"
+
+#: src/screens/HomeScreen.tsx:103
+msgid "Add your first card!"
+msgstr "İlk Kartını Ekle!"
+
+#: src/components/ImagePickerModal.tsx:105
+msgid "Cancel"
+msgstr "İptal"
+
+#: src/components/ImagePickerModal.tsx:90
+msgid "Choose from Gallery"
+msgstr "Galeriden Seç"
+
+#: src/screens/AddScreen.tsx:202
+msgid "Confirm"
+msgstr "Onayla"
+
+#: src/components/CheckedModal.tsx:115
+msgid "Create Another"
+msgstr "Bir Tane Daha Oluştur"
+
+#: src/components/CheckedModal.tsx:124
+msgid "Go Home"
+msgstr "Ana Ekrana Git"
+
+#: src/screens/HomeScreen.tsx:56
+msgid "My Cards"
+msgstr "Kartlarım"
+
+#: src/screens/HomeScreen.tsx:100
+msgid "No cards yet."
+msgstr "Henüz kart yok."
+
+#: src/screens/AddScreen.tsx:211
+msgid "Please fill in all fields."
+msgstr "Lütfen tüm alanları doldurun."
+
+#: src/screens/AddScreen.tsx:218
+msgid "Save"
+msgstr "Kaydet"
+
+#: src/components/ImagePickerModal.tsx:85
+msgid "Select Image"
+msgstr "Görsel Seç"
+
+#: src/components/CheckedModal.tsx:106
+msgid "Success!"
+msgstr "Başarılı!"
+
+#: src/components/ImagePickerModal.tsx:96
+msgid "Take Photo"
+msgstr "Fotoğraf Çek"
+
+#: src/screens/AddScreen.tsx:194
+msgid "Try Again"
+msgstr "Tekrar Dene"
+
+#: src/screens/AddScreen.tsx:173
+msgid "Type the word or phrase"
+msgstr "Kelime veya ifadeyi gir"
+
+#: src/screens/AddScreen.tsx:211
+msgid "Warning"
+msgstr "Uyarı"
+
+#: src/components/CheckedModal.tsx:109
+msgid "Your card has been successfully created."
+msgstr "Kartınız başarılı bir şekilde oluşturuldu."

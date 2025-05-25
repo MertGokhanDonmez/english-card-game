@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Content-Type: \n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#: src/screens/AddScreen.tsx:135
+msgid "Add a Description"
+msgstr "Add a Description"
+
+#: src/screens/AddScreen.tsx:139
+msgid "Add a Picture"
+msgstr "Add a Picture"
+
+#: src/screens/HomeScreen.tsx:116
+msgid "Add Card"
+msgstr "Add Card"
+
+#: src/screens/HomeScreen.tsx:103
+msgid "Add your first card!"
+msgstr "Add your first card!"
+
+#: src/components/ImagePickerModal.tsx:105
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/components/ImagePickerModal.tsx:90
+msgid "Choose from Gallery"
+msgstr "Choose from Gallery"
+
+#: src/screens/AddScreen.tsx:202
+msgid "Confirm"
+msgstr "Confirm"
+
+#: src/components/CheckedModal.tsx:115
+msgid "Create Another"
+msgstr "Create Another"
+
+#: src/components/CheckedModal.tsx:124
+msgid "Go Home"
+msgstr "Go Home"
+
+#: src/screens/HomeScreen.tsx:56
+msgid "My Cards"
+msgstr "My Cards"
+
+#: src/screens/HomeScreen.tsx:100
+msgid "No cards yet."
+msgstr "No cards yet."
+
+#: src/screens/AddScreen.tsx:211
+msgid "Please fill in all fields."
+msgstr "Please fill in all fields."
+
+#: src/screens/AddScreen.tsx:218
+msgid "Save"
+msgstr "Save"
+
+#: src/components/ImagePickerModal.tsx:85
+msgid "Select Image"
+msgstr "Select Image"
+
+#: src/components/CheckedModal.tsx:106
+msgid "Success!"
+msgstr "Success!"
+
+#: src/components/ImagePickerModal.tsx:96
+msgid "Take Photo"
+msgstr "Take Photo"
+
+#: src/screens/AddScreen.tsx:194
+msgid "Try Again"
+msgstr "Try Again"
+
+#: src/screens/AddScreen.tsx:173
+msgid "Type the word or phrase"
+msgstr "Type the word or phrase"
+
+#: src/screens/AddScreen.tsx:211
+msgid "Warning"
+msgstr "Warning"
+
+#: src/components/CheckedModal.tsx:109
+msgid "Your card has been successfully created."
+msgstr "Your card has been successfully created."

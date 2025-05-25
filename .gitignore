@@ -35,8 +35,15 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-app-example
-
+# native folder outputs
 /android
 /ios
+
+# i18n
+src/locale/locales/_build/
+src/locale/locales/**/*.js
+
+# local builds
 *.apk
+*.aab
+*.ipa

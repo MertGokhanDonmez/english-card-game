@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "@/src/types/navigation";
 import Icon from "react-native-vector-icons/Octicons";
+import { Trans } from "@lingui/react/macro";
 
 type CheckedModalNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -101,21 +102,27 @@ export default function CheckedModal({
             <Icon name="check" size={40} color="white" />
           </View>
 
-          <Text style={styles.modalTitle}>Success!</Text>
+          <Text style={styles.modalTitle}>
+            <Trans>Success!</Trans>
+          </Text>
           <Text style={styles.modalMessage}>
-            Your card has been successfully created.
+            <Trans>Your card has been successfully created.</Trans>
           </Text>
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={handleClose}>
-              <Text style={styles.buttonText}>Create Another</Text>
+              <Text style={styles.buttonText}>
+                <Trans>Create Another</Trans>
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={[styles.button, styles.homeButton]}
               onPress={handleGoBack}
             >
-              <Text style={styles.homeButtonText}>Go Home</Text>
+              <Text style={styles.homeButtonText}>
+                <Trans>Go Home</Trans>
+              </Text>
             </TouchableOpacity>
           </View>
         </Animated.View>

@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import { Trans } from "@lingui/react/macro";
 
 type Props = {
   visible: boolean;
@@ -80,21 +81,29 @@ export default function ImagePickerModal({
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.modalTitle}>Select Image</Text>
+          <Text style={styles.modalTitle}>
+            <Trans>Select Image</Trans>
+          </Text>
 
           <TouchableOpacity style={styles.button} onPress={pickImage}>
-            <Text style={styles.textStyle}>Choose from Gallery</Text>
+            <Text style={styles.textStyle}>
+              <Trans>Choose from Gallery</Trans>
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.button} onPress={takePhoto}>
-            <Text style={styles.textStyle}>Take Photo</Text>
+            <Text style={styles.textStyle}>
+              <Trans>Take Photo</Trans>
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[styles.button, styles.cancelButton]}
             onPress={onClose}
           >
-            <Text style={styles.cancelText}>Cancel</Text>
+            <Text style={styles.cancelText}>
+              <Trans>Cancel</Trans>
+            </Text>
           </TouchableOpacity>
 
           {isLoading && (

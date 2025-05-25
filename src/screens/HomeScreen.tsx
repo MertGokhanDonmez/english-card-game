@@ -3,8 +3,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Octicons";
 import { getAllItems } from "@/utils/storage";
 import { useState, useEffect, useRef } from "react";
-import { FlashCardType } from "@/types/flashCard";
-import FlashCard, { cardWidth, windowWidth } from "@/components/FlashCard";
+import { FlashCardType } from "@/src/types/flashCard";
+import FlashCard, { cardWidth, windowWidth } from "@/src/components/FlashCard";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "@/src/types/navigation";
@@ -14,6 +14,7 @@ import Animated, {
   useAnimatedScrollHandler,
   useDerivedValue,
 } from "react-native-reanimated";
+import { Trans, useLingui } from "@lingui/react/macro";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 
@@ -24,7 +25,7 @@ export default function HomeScreen() {
   const scrollViewOffset = useSharedValue(0);
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const listPadding = windowWidth - cardWidth;
-  const lastEndReachedTime = useRef(0);
+  const { t } = useLingui();
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -51,7 +52,9 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text style={styles.title}>My Cards</Text>
+        <Text style={styles.title}>
+          <Trans>My Cards</Trans>
+        </Text>
 
         {cards.length > 0 ? (
           <View style={[styles.scrollCardView]}>
@@ -93,8 +96,12 @@ export default function HomeScreen() {
         ) : (
           <View style={styles.emptyContainer}>
             <Icon name="file" size={50} color="#ccc" />
-            <Text style={styles.emptyTextPrimary}>No cards yet.</Text>
-            <Text style={styles.emptyTextSecondary}>Add your first card!</Text>
+            <Text style={styles.emptyTextPrimary}>
+              <Trans>No cards yet.</Trans>
+            </Text>
+            <Text style={styles.emptyTextSecondary}>
+              <Trans>Add your first card!</Trans>
+            </Text>
           </View>
         )}
       </View>
@@ -105,7 +112,9 @@ export default function HomeScreen() {
       >
         <View style={styles.buttonContent}>
           <Icon name="plus" size={20} color="white" />
-          <Text style={styles.buttonText}>Add Card</Text>
+          <Text style={styles.buttonText}>
+            <Trans>Add Card</Trans>
+          </Text>
         </View>
       </TouchableOpacity>
     </SafeAreaView>

@@ -9,15 +9,16 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-import { FlashCardType } from "@/types/flashCard";
-import ImagePickerModal from "@/components/ImagePickerModal";
-import CheckedModal from "@/components/CheckedModal";
+import { FlashCardType } from "@/src/types/flashCard";
+import ImagePickerModal from "@/src/components/ImagePickerModal";
+import CheckedModal from "@/src/components/CheckedModal";
 import { SafeAreaView } from "react-native-safe-area-context";
-import BackButton from "@/components/BackButton";
+import BackButton from "@/src/components/BackButton";
 import { setItem } from "@/utils/storage";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "@/src/types/navigation";
+import { Trans, useLingui } from "@lingui/react/macro";
 
 type AddScreenNavigationProp = StackNavigationProp<RootStackParamList, "Add">;
 
@@ -29,6 +30,7 @@ export default function AddScreen() {
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const flipAnimation = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation<AddScreenNavigationProp>();
+  const { t } = useLingui();
 
   const handleImageSelect = (uri: string) => {
     setImageUri(uri);
@@ -43,7 +45,7 @@ export default function AddScreen() {
   const handleCardCreate = async (card: FlashCardType) => {
     try {
       await setItem(card.backText, card);
-      console.log("Card saved successfully:", card);
+      // console.log("Card saved successfully:", card);
       setShowAlert(true);
     } catch (error) {
       console.error("Error saving card:", error);
@@ -129,9 +131,13 @@ export default function AddScreen() {
       />
       <View style={styles.centerContainer}>
         {imageUri !== "" ? (
-          <Text style={styles.title}>Add a Description</Text>
+          <Text style={styles.title}>
+            <Trans>Add a Description</Trans>
+          </Text>
         ) : (
-          <Text style={styles.title}>Add a Picture</Text>
+          <Text style={styles.title}>
+            <Trans>Add a Picture</Trans>
+          </Text>
         )}
         <View style={styles.cardContainer}>
           <TouchableOpacity
@@ -164,7 +170,7 @@ export default function AddScreen() {
           <Animated.View style={[flipToBackStyle, styles.cardBack]}>
             <TextInput
               style={styles.textInput}
-              placeholder="Type the word"
+              placeholder={t`Type the word or phrase`}
               value={backText}
               onChangeText={setBackText}
               autoFocus={isCardFlipped}
@@ -184,13 +190,17 @@ export default function AddScreen() {
                       setModalVisible(true);
                     }}
                   >
-                    <Text style={styles.buttonText}>Tekrar Dene</Text>
+                    <Text style={styles.buttonText}>
+                      <Trans>Try Again</Trans>
+                    </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.confirmButton}
                     onPress={flipCard}
                   >
-                    <Text style={styles.buttonText}>Onayla</Text>
+                    <Text style={styles.buttonText}>
+                      <Trans>Confirm</Trans>
+                    </Text>
                   </TouchableOpacity>
                 </>
               ) : (
@@ -198,13 +208,15 @@ export default function AddScreen() {
                   style={styles.confirmButton}
                   onPress={() => {
                     if (!imageUri || !backText) {
-                      Alert.alert("Hata", "Lütfen tüm alanları doldurun");
+                      Alert.alert(t`Warning`, t`Please fill in all fields.`);
                       return;
                     }
                     handleCardCreate(virtualCard);
                   }}
                 >
-                  <Text style={styles.buttonText}>Kaydet</Text>
+                  <Text style={styles.buttonText}>
+                    <Trans>Save</Trans>
+                  </Text>
                 </TouchableOpacity>
               )}
             </>
