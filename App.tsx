@@ -13,11 +13,13 @@ import { i18n } from "@lingui/core";
 
 import { dynamicActivate } from "./src/locale/i18n";
 import { AppLanguage } from "./src/locale/languages";
+import { getLocales } from "expo-localization";
 
 // Create the stack navigator
 const Stack = createStackNavigator();
+const deviceLanguage = getLocales()[0].languageCode;
 
-dynamicActivate(AppLanguage.tr);
+dynamicActivate(deviceLanguage as AppLanguage);
 
 export default function App() {
   return (
