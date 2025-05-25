@@ -39,6 +39,8 @@ export default function HomeScreen() {
 
   const fetchCards = async () => {
     const items = await getAllItems();
+    console.log("Fetched items ===------>>>>> ", items);
+
     const cardsArray = Object.values(items).filter(
       (item) => item && typeof item === "object" && "id" in item
     ) as FlashCardType[];

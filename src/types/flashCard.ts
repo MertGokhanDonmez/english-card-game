@@ -1,7 +1,7 @@
 export interface FlashCardType {
     id: string;
-    frontImage: string; // URI formatında
+    frontImage: string;
     backText: string;
     createdAt: Date;
-    tags?: string[]; // Opsiyonel kategori etiketleri
+    tags?: string[];
   }

@@ -44,7 +44,7 @@ export default function AddScreen() {
 
   const handleCardCreate = async (card: FlashCardType) => {
     try {
-      await setItem(card.backText, card);
+      await setItem(card.id, card);
       // console.log("Card saved successfully:", card);
       setShowAlert(true);
     } catch (error) {
