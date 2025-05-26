@@ -8,6 +8,7 @@ import {
   Animated,
   TextInput,
   StyleSheet,
+  Platform,
 } from "react-native";
 import { FlashCardType } from "@/src/types/flashCard";
 import ImagePickerModal from "@/src/components/ImagePickerModal";
@@ -19,6 +20,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "@/src/types/navigation";
 import { Trans, useLingui } from "@lingui/react/macro";
+import { windowHeight, windowWidth } from "../components/FlashCard";
 
 type AddScreenNavigationProp = StackNavigationProp<RootStackParamList, "Add">;
 
@@ -174,7 +176,12 @@ export default function AddScreen() {
               value={backText}
               onChangeText={setBackText}
               autoFocus={isCardFlipped}
-              caretHidden={true}
+              multiline
+              maxLength={150}
+              textAlign="center"
+              textAlignVertical="center"
+              numberOfLines={1}
+              scrollEnabled={false}
             />
           </Animated.View>
         </View>
@@ -281,11 +288,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   textInput: {
-    width: "100%",
-    height: "100%",
     textAlign: "center",
     fontSize: 24,
-    padding: 16,
+    lineHeight: 28,
   },
   buttonContainer: {
     flexDirection: "row",
