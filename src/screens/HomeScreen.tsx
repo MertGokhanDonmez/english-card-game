@@ -15,6 +15,7 @@ import Animated, {
   useDerivedValue,
 } from "react-native-reanimated";
 import { Trans, useLingui } from "@lingui/react/macro";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 
@@ -39,7 +40,7 @@ export default function HomeScreen() {
 
   const fetchCards = async () => {
     const items = await getAllItems();
-    console.log("Fetched items ===------>>>>> ", items);
+    // console.log("Fetched items ===------>>>>> ", items);
 
     const cardsArray = Object.values(items).filter(
       (item) => item && typeof item === "object" && "id" in item
@@ -51,17 +52,40 @@ export default function HomeScreen() {
   //   console.log("Scroll offset:", scrollViewOffset.value);
   // }, []);
 
+  const shuffeledCards = () => {
+    return [...cards].sort(() => Math.random() - 0.5);
+  };
+
+  const handleShuffle = () => {
+    const shuffled = shuffeledCards();
+    console.log("Shuffled cards:", shuffled);
+
+    setCards(shuffled);
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <Text style={styles.title}>
           <Trans>My Cards</Trans>
         </Text>
+        {/* <TouchableWithoutFeedback
+          onPress={() => {
+            handleShuffle();
+          }}
+        >
+          <Icon
+            name="sync"
+            size={20}
+            color="#3b82f6"
+            style={{ marginLeft: 8 }}
+          />
+        </TouchableWithoutFeedback> */}
 
         {cards.length > 0 ? (
           <View style={[styles.scrollCardView]}>
             <Animated.FlatList
-              data={cards.reverse()}
+              data={[...cards].reverse()}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item, index }) => (
                 <View>
