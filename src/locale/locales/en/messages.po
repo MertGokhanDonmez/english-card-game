@@ -11,19 +11,23 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/screens/AddScreen.tsx:135
+#: src/screens/HomeScreen.tsx:141
+msgid "Add"
+msgstr "Add"
+
+#: src/screens/AddScreen.tsx:137
 msgid "Add a Description"
 msgstr "Add a Description"
 
-#: src/screens/AddScreen.tsx:139
+#: src/screens/AddScreen.tsx:141
 msgid "Add a Picture"
 msgstr "Add a Picture"
 
 #: src/screens/HomeScreen.tsx:116
-msgid "Add Card"
-msgstr "Add Card"
+#~ msgid "Add Card"
+#~ msgstr "Add Card"
 
-#: src/screens/HomeScreen.tsx:103
+#: src/screens/HomeScreen.tsx:117
 msgid "Add your first card!"
 msgstr "Add your first card!"
 
@@ -35,7 +39,7 @@ msgstr "Cancel"
 msgid "Choose from Gallery"
 msgstr "Choose from Gallery"
 
-#: src/screens/AddScreen.tsx:202
+#: src/screens/AddScreen.tsx:209
 msgid "Confirm"
 msgstr "Confirm"
 
@@ -43,23 +47,27 @@ msgstr "Confirm"
 msgid "Create Another"
 msgstr "Create Another"
 
+#: src/screens/HomeScreen.tsx:130
+msgid "Delete"
+msgstr "Delete"
+
 #: src/components/CheckedModal.tsx:124
 msgid "Go Home"
 msgstr "Go Home"
 
-#: src/screens/HomeScreen.tsx:56
+#: src/screens/HomeScreen.tsx:70
 msgid "My Cards"
 msgstr "My Cards"
 
-#: src/screens/HomeScreen.tsx:100
+#: src/screens/HomeScreen.tsx:114
 msgid "No cards yet."
 msgstr "No cards yet."
 
-#: src/screens/AddScreen.tsx:211
+#: src/screens/AddScreen.tsx:218
 msgid "Please fill in all fields."
 msgstr "Please fill in all fields."
 
-#: src/screens/AddScreen.tsx:218
+#: src/screens/AddScreen.tsx:225
 msgid "Save"
 msgstr "Save"
 
@@ -75,15 +83,15 @@ msgstr "Success!"
 msgid "Take Photo"
 msgstr "Take Photo"
 
-#: src/screens/AddScreen.tsx:194
+#: src/screens/AddScreen.tsx:201
 msgid "Try Again"
 msgstr "Try Again"
 
-#: src/screens/AddScreen.tsx:173
+#: src/screens/AddScreen.tsx:175
 msgid "Type the word or phrase"
 msgstr "Type the word or phrase"
 
-#: src/screens/AddScreen.tsx:211
+#: src/screens/AddScreen.tsx:218
 msgid "Warning"
 msgstr "Warning"
 

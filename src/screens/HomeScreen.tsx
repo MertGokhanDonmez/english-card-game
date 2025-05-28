@@ -119,18 +119,30 @@ export default function HomeScreen() {
           </View>
         )}
       </View>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Add")}
-        style={styles.addButton}
-      >
-        <View style={styles.buttonContent}>
-          <Icon name="plus" size={20} color="white" />
-          <Text style={styles.buttonText}>
-            <Trans>Add Card</Trans>
-          </Text>
-        </View>
-      </TouchableOpacity>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Add")}
+          style={styles.deleteButton}
+        >
+          <View style={styles.buttonContent}>
+            <Icon name="dash" size={20} color="#3b82f6" />
+            <Text style={styles.deleteButtonText}>
+              <Trans>Delete</Trans>
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Add")}
+          style={styles.addButton}
+        >
+          <View style={styles.buttonContent}>
+            <Icon name="plus" size={20} color="white" />
+            <Text style={styles.addButtonText}>
+              <Trans>Add</Trans>
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
@@ -141,7 +153,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9fafb",
   },
   container: {
-    flex: 1,
+    flex: 5,
     padding: 16,
   },
   title: {
@@ -171,10 +183,9 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   addButton: {
-    position: "absolute",
-    bottom: 32,
-    right: 16,
     backgroundColor: "#3b82f6",
+    borderWidth: 2,
+    borderColor: "#3b82f6",
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 30,
@@ -184,13 +195,41 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
+  addButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    marginLeft: 8,
+  },
+  deleteButton: {
+    backgroundColor: "white",
+    borderColor: "#3b82f6",
+    borderWidth: 2,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 30,
+    elevation: 6,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  deleteButtonText: {
+    color: "#3b82f6",
+    fontWeight: "bold",
+    marginLeft: 8,
+  },
   buttonContent: {
     flexDirection: "row",
     alignItems: "center",
   },
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
-    marginLeft: 8,
+
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    bottom: 0,
+    paddingHorizontal: "10%",
+    paddingBottom: "15%",
+    position: "absolute",
   },
 });

@@ -11,19 +11,19 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/screens/AddScreen.tsx:135
+#: src/screens/HomeScreen.tsx:141
+msgid "Add"
+msgstr "Ekle"
+
+#: src/screens/AddScreen.tsx:137
 msgid "Add a Description"
 msgstr "Bir Açıklama Ekle"
 
-#: src/screens/AddScreen.tsx:139
+#: src/screens/AddScreen.tsx:141
 msgid "Add a Picture"
 msgstr "Bir Görsel Ekle"
 
-#: src/screens/HomeScreen.tsx:116
-msgid "Add Card"
-msgstr "Kart Ekle"
-
-#: src/screens/HomeScreen.tsx:103
+#: src/screens/HomeScreen.tsx:117
 msgid "Add your first card!"
 msgstr "İlk Kartını Ekle!"
 
@@ -35,7 +35,7 @@ msgstr "İptal"
 msgid "Choose from Gallery"
 msgstr "Galeriden Seç"
 
-#: src/screens/AddScreen.tsx:202
+#: src/screens/AddScreen.tsx:209
 msgid "Confirm"
 msgstr "Onayla"
 
@@ -43,23 +43,27 @@ msgstr "Onayla"
 msgid "Create Another"
 msgstr "Bir Tane Daha Oluştur"
 
+#: src/screens/HomeScreen.tsx:130
+msgid "Delete"
+msgstr "Sil"
+
 #: src/components/CheckedModal.tsx:124
 msgid "Go Home"
 msgstr "Ana Ekrana Git"
 
-#: src/screens/HomeScreen.tsx:56
+#: src/screens/HomeScreen.tsx:70
 msgid "My Cards"
 msgstr "Kartlarım"
 
-#: src/screens/HomeScreen.tsx:100
+#: src/screens/HomeScreen.tsx:114
 msgid "No cards yet."
 msgstr "Henüz kart yok."
 
-#: src/screens/AddScreen.tsx:211
+#: src/screens/AddScreen.tsx:218
 msgid "Please fill in all fields."
 msgstr "Lütfen tüm alanları doldurun."
 
-#: src/screens/AddScreen.tsx:218
+#: src/screens/AddScreen.tsx:225
 msgid "Save"
 msgstr "Kaydet"
 
@@ -75,15 +79,15 @@ msgstr "Başarılı!"
 msgid "Take Photo"
 msgstr "Fotoğraf Çek"
 
-#: src/screens/AddScreen.tsx:194
+#: src/screens/AddScreen.tsx:201
 msgid "Try Again"
 msgstr "Tekrar Dene"
 
-#: src/screens/AddScreen.tsx:173
+#: src/screens/AddScreen.tsx:175
 msgid "Type the word or phrase"
 msgstr "Kelime veya ifadeyi gir"
 
-#: src/screens/AddScreen.tsx:211
+#: src/screens/AddScreen.tsx:218
 msgid "Warning"
 msgstr "Uyarı"
 
