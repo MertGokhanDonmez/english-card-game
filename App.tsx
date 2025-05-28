@@ -14,6 +14,7 @@ import { i18n } from "@lingui/core";
 import { dynamicActivate } from "./src/locale/i18n";
 import { AppLanguage } from "./src/locale/languages";
 import { getLocales } from "expo-localization";
+import ListScreen from "./src/screens/ListScreen";
 
 // Create the stack navigator
 const Stack = createStackNavigator();
@@ -30,6 +31,7 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Add" component={AddScreen} />
+            <Stack.Screen name="List" component={ListScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </I18nProvider>
