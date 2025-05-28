@@ -121,13 +121,13 @@ export default function HomeScreen() {
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Add")}
-          style={styles.deleteButton}
+          onPress={() => navigation.navigate("List")}
+          style={styles.updateButton}
         >
           <View style={styles.buttonContent}>
-            <Icon name="dash" size={20} color="#3b82f6" />
-            <Text style={styles.deleteButtonText}>
-              <Trans>Delete</Trans>
+            <Icon name="stack" size={20} color="#3b82f6" />
+            <Text style={styles.updateButtonText}>
+              <Trans>All Cards</Trans>
             </Text>
           </View>
         </TouchableOpacity>
@@ -150,7 +150,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#f9fafb",
   },
   container: {
     flex: 5,
@@ -200,7 +199,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft: 8,
   },
-  deleteButton: {
+  updateButton: {
     backgroundColor: "white",
     borderColor: "#3b82f6",
     borderWidth: 2,
@@ -213,7 +212,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
-  deleteButtonText: {
+  updateButtonText: {
     color: "#3b82f6",
     fontWeight: "bold",
     marginLeft: 8,
