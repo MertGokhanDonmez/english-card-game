@@ -69,19 +69,6 @@ export default function HomeScreen() {
         <Text style={styles.title}>
           <Trans>My Cards</Trans>
         </Text>
-        {/* <TouchableWithoutFeedback
-          onPress={() => {
-            handleShuffle();
-          }}
-        >
-          <Icon
-            name="sync"
-            size={20}
-            color="#3b82f6"
-            style={{ marginLeft: 8 }}
-          />
-        </TouchableWithoutFeedback> */}
-
         {cards.length > 0 ? (
           <View style={[styles.scrollCardView]}>
             <Animated.FlatList
@@ -112,6 +99,7 @@ export default function HomeScreen() {
               onEndReached={() => {
                 if (animatedFlatRef.current) {
                   setTimeout(() => {
+                    handleShuffle();
                     animatedFlatRef.current?.scrollToEnd();
                   }, 150);
                 }
